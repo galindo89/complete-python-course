@@ -1,0 +1,102 @@
+# library to read and write csv files
+import csv
+
+# Init Variables
+search_criteria = " "
+movie_search = []
+option = 0
+movie_library = []
+csv_file = "Movie_Library.csv"  # Define CSV file where to store library
+csv_columns = ["name", "director", "year"]  # define the key values for the dictionary that will be store in a CSV file
+
+# Load Movie_Library list of dictionaries with key name,director and year from a CSV
+with open (csv_file) as file_object:
+    reader = csv.DictReader (file_object, delimiter = ",")
+    for row in reader:
+        movie_library.append (dict (row))
+
+
+# function to add new movies
+def insert_new_movie():
+    new_movie = dict.fromkeys (["name", "director", "year"])
+    for key, value in new_movie.items ():
+        new_movie[key] = input (f"Insert please movie {key}:")
+    movie_library.append (new_movie)
+
+    # store info in CSV
+    try:
+        with open (csv_file, 'w') as file_object:
+            writer = csv.DictWriter (file_object, fieldnames = csv_columns)
+            writer.writeheader ()
+            for data in movie_library:
+                writer.writerow (data)
+    except IOError:
+        print ("I/O error")
+    return movie_library
+
+
+# function to print movie library
+def print_movie_library(movie_library):
+    for movie in movie_library:
+        print ("""-------------------------
+        Movie Info
+        """)
+        for key, value in movie.items ():
+            print (f"{key}: {value}.")
+
+
+# function to filter dictionary by matched key and value
+def movie_filter(variable):
+    if (variable[search_criteria] in movie_search):
+        return True
+    else:
+        return False
+
+
+# Program Starts
+
+print ("""Welcome to your movie library : 
+			to add a movie press 1
+			to search for your movies in the library press 2
+			to print the list of all movies you have press 3
+			to exit the program press 4	
+			""")
+
+while option != "4":
+
+    option = input ("Please tell us what you want to do: ")
+
+    if option == "1":
+        insert_new_movie ()
+
+    elif option == "2":
+        search_by = input ("Please search by: name [enter 1], director [enter 2], year [enter 3]: ")
+
+        if search_by == "1":
+            search_criteria = "name"
+            movie_search.append (input ("Enter name: "))
+            filtered_movie = list (filter (movie_filter, movie_library))
+            print_movie_library (filtered_movie)
+
+        elif search_by == "2":
+            search_criteria = "director"
+            movie_search.append (input ("Enter director: "))
+            filtered_movie = list (filter (movie_filter, movie_library))
+            print_movie_library (filtered_movie)
+
+        elif search_by == "3":
+            search_criteria = "year"
+            movie_search.append (input ("Enter year: "))
+            filtered_movie = list (filter (movie_filter, movie_library))
+            print_movie_library (filtered_movie)
+        # print (filtered_movie)
+
+    elif option == "3":
+        print_movie_library (movie_library)
+
+    elif option == "4":
+        print ("Thanks for using the library")
+
+    # in case user inputs something different to 1-4
+    else:
+        print ("Please select an option between 1 and 4")
