@@ -8,6 +8,11 @@ option = 0
 movie_library = []
 csv_file = "Movie_Library.csv"  # Define CSV file where to store library
 csv_columns = ["name", "director", "year"]  # define the key values for the dictionary that will be store in a CSV file
+search_menu={
+    "1": "name",
+    "2": "director",
+    "3": "year"
+}# Menu option when user wants to search in the movie library
 
 # Load Movie_Library list of dictionaries with key name,director and year from a CSV
 with open (csv_file) as file_object:
@@ -15,10 +20,9 @@ with open (csv_file) as file_object:
     for row in reader:
         movie_library.append (dict (row))
 
-
 # function to add new movies
 def insert_new_movie():
-    new_movie = dict.fromkeys (["name", "director", "year"])
+    new_movie = dict.fromkeys (csv_columns)
     for key, value in new_movie.items ():
         new_movie[key] = input (f"Insert please movie {key}:")
     movie_library.append (new_movie)
@@ -34,7 +38,6 @@ def insert_new_movie():
         print ("I/O error")
     return movie_library
 
-
 # function to print movie library
 def print_movie_library(movie_library):
     for movie in movie_library:
@@ -44,14 +47,26 @@ def print_movie_library(movie_library):
         for key, value in movie.items ():
             print (f"{key}: {value}.")
 
-
 # function to filter dictionary by matched key and value
+
+
+search_menu={
+    "1": "name",
+    "2": "director",
+    "3": "year"
+}
+def movie_searcher():
+    search_by = input ("Please search by: name [enter 1], director [enter 2], year [enter 3]: ")
+    if search_by in search_menu:
+        search_criteria = search_menu[search_by]
+        movie_search.append (input (f"Enter {search_criteria}: "))
+        return [search_criteria,movie_search]
+
 def movie_filter(variable):
     if (variable[search_criteria] in movie_search):
         return True
     else:
         return False
-
 
 # Program Starts
 
@@ -70,26 +85,11 @@ while option != "4":
         insert_new_movie ()
 
     elif option == "2":
-        search_by = input ("Please search by: name [enter 1], director [enter 2], year [enter 3]: ")
-
-        if search_by == "1":
-            search_criteria = "name"
-            movie_search.append (input ("Enter name: "))
-            filtered_movie = list (filter (movie_filter, movie_library))
-            print_movie_library (filtered_movie)
-
-        elif search_by == "2":
-            search_criteria = "director"
-            movie_search.append (input ("Enter director: "))
-            filtered_movie = list (filter (movie_filter, movie_library))
-            print_movie_library (filtered_movie)
-
-        elif search_by == "3":
-            search_criteria = "year"
-            movie_search.append (input ("Enter year: "))
-            filtered_movie = list (filter (movie_filter, movie_library))
-            print_movie_library (filtered_movie)
-        # print (filtered_movie)
+         search_input=movie_searcher()
+         search_criteria=search_input[0]
+         movie_search=search_input[1]
+         filtered_movie = list (filter (movie_filter, movie_library))
+         print_movie_library (filtered_movie)
 
     elif option == "3":
         print_movie_library (movie_library)
