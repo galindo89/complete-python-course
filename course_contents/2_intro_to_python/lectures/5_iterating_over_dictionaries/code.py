@@ -10,3 +10,5 @@ for age in friend_ages.values():
 
 for name, age in friend_ages.items():
     print(f"{name} is {age} years old.")
+
+print(friend_ages)

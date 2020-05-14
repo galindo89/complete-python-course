@@ -1,4 +1,5 @@
 # Imagine you've got all your friends in a list, and you want to print it out.
+
 friends = ["Rolf", "Anne", "Charlie"]
 print(f"My friends are {friends}.")
 

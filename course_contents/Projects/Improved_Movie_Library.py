@@ -2,8 +2,6 @@
 import csv
 
 # Init Variables
-search_criteria = " "
-movie_search = []
 option = 0
 movie_library = []
 csv_file = "Movie_Library.csv"  # Define CSV file where to store library
@@ -51,14 +49,13 @@ def print_movie_library(movie_library):
 #function to search for the movies based on search criteria selected by the user
 def movie_searcher():
     search_by = input ("Please search by: name [enter 1], director [enter 2], year [enter 3]: ")
+    search_criteria = " "
+    movie_search = []
+
     if search_by in search_menu:
         search_criteria = search_menu[search_by]
         movie_search.append (input (f"Enter {search_criteria}: "))
         return [search_criteria,movie_search]
-
-# function to filter dictionary by matched key and value
-def movie_filter(variable):
-    return variable[search_criteria] in movie_search
 
 # Program Starts
 
@@ -77,13 +74,11 @@ while option != "4":
         insert_new_movie ()
 
     elif option == "2":
-         search_input=movie_searcher()
-         search_criteria=search_input[0]
-         movie_search=search_input[1]
-         #print(search_criteria)
-         #print(movie_search)
-         filtered_movie = list (filter (movie_filter, movie_library))
-         print_movie_library (filtered_movie)
+         search_input = movie_searcher ()
+         search_criteria = search_input[0]
+         movie_search = search_input[1]
+         filtered_movie=[movie for movie in movie_library if movie[search_criteria] in movie_search]
+         print_movie_library(filtered_movie)
 
     elif option == "3":
         print_movie_library (movie_library)
