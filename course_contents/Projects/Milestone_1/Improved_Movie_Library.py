@@ -26,7 +26,7 @@ def insert_new_movie():
         # store info in CSV
     try:
         with open(csv_file, 'w') as file_object:
-            writer = csv.DictWriter(file_object, fieldnames = csv_columns)
+            writer = csv.DictWriter(file_object, fieldnames = csv_columns,lineiterator="\n")
             writer.writeheader()
             for data in movie_library:
                 writer.writerow(data)
@@ -75,7 +75,6 @@ while True:
 
     elif option == "2":
         movie_searcher()
-        # print_movie_library(movie_searcher())
 
     elif option == "3":
         print_movie_library(movie_library)

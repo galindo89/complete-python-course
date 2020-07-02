@@ -14,6 +14,8 @@ for club in clubs_list:
     club_dictionary={k: v for k, v in zip(clubs_key, club)}
     clubs_dict.append(club_dictionary)
 
+print(clubs_dict)
+
 club_json=open("clubs.json","w")
 
 json.dump(clubs_dict,club_json)
