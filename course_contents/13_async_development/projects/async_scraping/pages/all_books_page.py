@@ -10,8 +10,8 @@ logger = logging.getLogger('scraping.all_books_page')
 
 class AllBooksPage:
     def __init__(self, page):
-        logger.debug('Parsing page content with BeautifulSoup HTML parser.')
-        self.soup = BeautifulSoup(page, 'html.parser')
+        logger.debug('Parsing page content with BeautifulSoup HTML parsers.')
+        self.soup = BeautifulSoup(page, 'html.parsers')
 
     @property
     def books(self):

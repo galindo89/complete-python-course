@@ -42,7 +42,7 @@ class ParsedItem:
     in it.
     """
     def __init__(self, page):
-        self.soup = BeautifulSoup(page, 'html.parser')
+        self.soup = BeautifulSoup(page, 'html.parsers')
 
     def name(self):
         locator = 'article.product_pod h3 a'

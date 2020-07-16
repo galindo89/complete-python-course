@@ -36,7 +36,7 @@ ITEM_HTML = '''<html><head></head><body>
 '''
 
 
-soup = BeautifulSoup(ITEM_HTML, 'html.parser')
+soup = BeautifulSoup(ITEM_HTML, 'html.parsers')
 
 
 def find_item_name():

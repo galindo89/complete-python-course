@@ -1,4 +1,4 @@
-from bs4 import BeautifulSoup
+ from bs4 import BeautifulSoup
 
 SIMPLE_HTML = '''<html>
 <head></head>
@@ -15,7 +15,7 @@ SIMPLE_HTML = '''<html>
 </body>
 </html>'''
 
-simple_soup = BeautifulSoup(SIMPLE_HTML, 'html.parser')
+simple_soup = BeautifulSoup(SIMPLE_HTML, 'html.parsers')
 
 
 def find_title():
